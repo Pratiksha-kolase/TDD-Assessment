@@ -7,4 +7,14 @@ public class StringCalculatorTest {
     public void testWithEmptyString(){
         assertEquals(0,StringCalculator.addition(""));
     }
+    @Test
+    public void testWithOnlyOneNumber(){
+        assertEquals(1,StringCalculator.addition("1"));
+    }
+
+    @Test
+    public void testWithNewLineInBetween(){
+        assertEquals(6,StringCalculator.addition("1\n2,3"));
+    }
+
 }
