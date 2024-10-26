@@ -19,7 +19,7 @@ public class StringCalculatorTest {
 
     @Test
     public void testWithDifferentDelimiters(){
-        assertEquals(3,StringCalculator.addition("//;\\n1;2"));
+        assertEquals(3,StringCalculator.addition("//;\n1;2"));
     }
 
 }

@@ -7,13 +7,21 @@ public class StringCalculator {
         if (numbersToAdd.isEmpty()) {
             return 0;
         }
-        numbersToAdd = removeNewLine(numbersToAdd);
-        String[] numbersArray = numbersToAdd.split(",");
+       String[] numbersArray = removeNewLine(numbersToAdd);
+//
         return Arrays.stream(numbersArray).mapToInt(Integer::parseInt).sum();
     }
 
-    private static String removeNewLine(String numberToAdd) {
-        numberToAdd = numberToAdd.replace("\n", ",");
-        return numberToAdd;
+    private static String[] removeNewLine(String numberToAdd) {
+        if(numberToAdd.startsWith("//")) {
+            numberToAdd = numberToAdd.replace("//","\n");
+        }
+        if(numberToAdd.startsWith("//")) {
+            numberToAdd = numberToAdd.replace("//","\n");
+        }
+        numberToAdd = numberToAdd.replaceAll("[,\\n;`^|#@$%&*()!\\t]+", ",").replaceAll("^,|,$", "");
+        String[] separateNum = numberToAdd.split("[,\\n]");
+
+        return separateNum;
     }
 }
