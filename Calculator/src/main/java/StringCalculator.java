@@ -9,13 +9,11 @@ public class StringCalculator {
         if (numbersToAdd.isEmpty()) {
             return 0;
         }
-
+        if (numbersToAdd.length() == 1) {
+            return Integer.parseInt(numbersToAdd);
+        }
         String[] numbersArray = removeNewLine(numbersToAdd);
-        List<Integer> negative = isNegative(numbersArray);
-        if(!negative.isEmpty()){
-            throw new IllegalArgumentException("negative numbers not allowed "+negative.stream().map(String::valueOf).collect(Collectors.joining(", ")));
-            }
-
+         isNegative(numbersArray);
         return Arrays.stream(numbersArray).mapToInt(Integer::parseInt).sum();
     }
 
@@ -23,21 +21,20 @@ public class StringCalculator {
         if (numberToAdd.startsWith("//")) {
             numberToAdd = numberToAdd.replace("//", "\n");
         }
+
         numberToAdd = numberToAdd.replaceAll("[,\\n;`^|#@$%&*()!\\t]+", ",").replaceAll("^,|,$", "");
-        String[] separateNum = numberToAdd.split("[,\\n]");
+        String[] separateNum = numberToAdd.split(",");
         return separateNum;
     }
 
-    private static List<Integer> isNegative(String[] numbersArray) {
+    private static void isNegative(String[] numbersArray) {
         List<Integer> integers = Arrays.stream(numbersArray)
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
         integers = integers.stream().filter(negativeNum -> negativeNum < 0)
                 .collect(Collectors.toList());
         if (!integers.isEmpty()) {
-            return integers;
-        }else {
-            return null;
+                throw new IllegalArgumentException("negative numbers not allowed " + integers.stream().map(String::valueOf).collect(Collectors.joining(", ")));
         }
     }
 }
